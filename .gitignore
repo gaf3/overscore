@@ -1,0 +1,5 @@
+
+*.pyc
+lib/overscore.egg-info/
+dep/
+docs/build
