@@ -3,7 +3,7 @@
 import os
 from setuptools import setup
 
-with open("README.md", "r") as readme_file:
+with open("README.rst", "r") as readme_file:
     long_description = readme_file.read()
 
 version = os.environ.get("BUILD_VERSION")
@@ -27,7 +27,6 @@ setup(
     author_email="overscore@gaf3.com",
     description="Double underscore access notation",
     long_description=long_description,
-    long_description_content_type="text/markdown",
     license_files=('LICENSE.txt',),
     classifiers=[
         "Programming Language :: Python :: 3",

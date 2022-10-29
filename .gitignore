@@ -1,5 +1,5 @@
 
 *.pyc
-lib/overscore.egg-info/PKG-INFO
+lib/overscore.egg-info/
 dep/
 docs/build

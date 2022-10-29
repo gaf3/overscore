@@ -16,7 +16,7 @@ ENVIRONMENT=-e PYTHONDONTWRITEBYTECODE=1 \
 			-e test="python -m unittest -v" \
 			-e debug="python -m ptvsd --host 0.0.0.0 --port 5678 --wait -m unittest -v"
 PYPI=-v ${PWD}/LICENSE.txt:/opt/service/LICENSE.txt \
-	-v ${PWD}/PYPI.md:/opt/service/README.md \
+	-v ${PWD}/README.rst:/opt/service/README.rst \
 	-v ${HOME}/.pypirc:/opt/service/.pypirc
 
 .PHONY: build shell debug test lint setup sphinx tag untag testpypi pypi sphinx docs html clean rtd
@@ -39,9 +39,7 @@ lint:
 setup:
 	docker run $(TTY) $(VOLUMES) $(PYPI) $(INSTALL) sh -c "cp -r /opt/service /opt/install && cd /opt/install/ && \
 	python setup.py install && \
-	python -m sphinxter.reader && \
-	python -m sphinxter.document && \
-	python -m sphinxter.writer"
+	python -m overscore"
 
 tag:
 	-git tag -a $(VERSION) -m "Version $(VERSION)"
