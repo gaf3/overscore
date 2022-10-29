@@ -139,12 +139,35 @@ parse that place in the path.
 
         overscore.set(data, "things__a__b___2____1", "yep")
         data
-        # {}
+        # {
+        #     "things": {
+        #         "a": {
+        #             "b": [
+        #                 {
+        #                     "1": "yep"
+        #                 },
+        #                 None
+        #             ]
+        #         }
+        #     }
+        # }
 
     Or using via a list::
 
         overscore.set(data, ["things", "a", "b", -2, "1"], "sure")
-        # {}
+        data
+        # {
+        #     "things": {
+        #         "a": {
+        #             "b": [
+        #                 {
+        #                     "1": "sure"
+        #                 },
+        #                 None
+        #             ]
+        #         }
+        #     }
+        # }
 
 .. function:: parse(text: str) -> list
 
@@ -161,13 +184,21 @@ parse that place in the path.
         import overscore
 
         overscore.parse("a__0___1____2_____3")
-        # []
+        # [
+        #     "a",
+        #     0,
+        #     -1,
+        #     "2",
+        #     "-3"
+        # ]
 
-.. function:: compile(path)
+.. function:: compile(path: list) -> str
 
     Compiles a list of keys/indexes to text
 
-    :param path:
+    :param path: The path to compile
+    :type path: list
+    :rtype: str
 
     **Usage**
 
@@ -176,7 +207,7 @@ parse that place in the path.
         import overscore
 
         overscore.compile(["a", 0, -1, "2", "-3"])
-        # ""
+        # "a__0___1____2_____3"
 
 .. exception:: OverscoreError
 
