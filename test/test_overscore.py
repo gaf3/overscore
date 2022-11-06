@@ -32,6 +32,16 @@ class TestOverscore(sphinxter.unittest.TestCase):
 
         self.assertSphinxter(overscore.compile)
 
+    def test_has(self):
+
+        self.assertTrue(overscore.has({"things": {"a":{"b": [{"1": "yep"}]}}}, "things__a__b__0____1"))
+        self.assertFalse(overscore.has({}, "things__a__b__0____1"))
+
+        self.assertFalse(overscore.has({"stuff": {"a": []}}, "stuff__a__b"))
+        self.assertFalse(overscore.has({"stuff": {"a": {}}}, "stuff__a__1"))
+
+        self.assertSphinxter(overscore.has)
+
     def test_get(self):
 
         self.assertEqual(overscore.get({"things": {"a":{"b": [{"1": "yep"}]}}}, "things__a__b__0____1"), "yep")
