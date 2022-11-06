@@ -84,6 +84,42 @@ parse that place in the path.
 
     regex matching a word
 
+.. function:: has(data, path) -> bool
+
+    Indicates whether path exists in data
+
+    :param data: The multidimensional data
+    :type data: dict or list or str
+    :param path: The double underscored path to the intended value
+    :type path: list or str
+    :rtype: bool
+
+    **Usage**
+
+    You can check via a string::
+
+        import overscore
+
+        data = {
+            "things": {
+                "a": {
+                    "b": [
+                        {
+                            "1": "yep"
+                        }
+                    ]
+                }
+            }
+        }
+
+        overscore.has(data, "things__a__b__0____1")
+        # True
+
+    Or using via a list::
+
+        overscore.has(data, ["things", "a", "b", 0, "1"])
+        # True
+
 .. function:: get(data, path)
 
     Retrieves the value in multidimensional data at the double underscored path
@@ -121,7 +157,7 @@ parse that place in the path.
 
 .. function:: set(data, path, value)
 
-    Stores a value in multidimensional data at the double underscored path
+    Stores a value in multidimensional data at the double underscored path, creating necessary structures along the way
 
     :param data: The multidimensional data
     :type data: dict or list or str

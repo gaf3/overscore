@@ -194,6 +194,73 @@ def compile(
     return "__".join(places)
 
 
+
+def has(
+    data,   # The multidimensional data
+    path    # The double underscored path to the intended value
+)->bool:
+    """
+    description: Indicates whether path exists in data
+    parameters:
+        data:
+            type:
+            - dict
+            - list
+            - str
+        path:
+            type:
+            - list
+            - str
+    returns: Whether path exists in data
+    document: 0
+    usage: |
+        You can check via a string::
+
+            import overscore
+
+            data = {
+                "things": {
+                    "a": {
+                        "b": [
+                            {
+                                "1": "yep"
+                            }
+                        ]
+                    }
+                }
+            }
+
+            overscore.has(data, "things__a__b__0____1")
+            # True
+
+        Or using via a list::
+
+            overscore.has(data, ["things", "a", "b", 0, "1"])
+            # True
+    """
+
+    if isinstance(path, str):
+        path = parse(path)
+
+    for place in path:
+        if isinstance(place, int):
+            if (
+                (not isinstance(data, list)) or
+                (place >= 0 and len(data) < place + 1) or
+                (place < 0 and len(data) < abs(place))
+            ):
+                return False
+        else:
+            if (
+                (not isinstance(data, dict)) or
+                (place not in data)
+            ):
+                return False
+        data = data[place]
+
+    return True
+
+
 def get(
     data,   # The multidimensional data
     path    # The double underscored path to the intended value
@@ -210,8 +277,8 @@ def get(
             type:
             - list
             - str
-    returns: The value in data at path
-    document: 0
+    returns: The value in data at path or None if not found
+    document: 5
     usage: |
         You can retrieve via a string::
 
@@ -266,7 +333,8 @@ def set(
     value   # The value to store
 ):
     """
-    description: Stores a value in multidimensional data at the double underscored path
+    description: |
+        Stores a value in multidimensional data at the double underscored path, creating necessary structures along the way
     parameters:
         data:
             type:
