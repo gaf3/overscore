@@ -219,9 +219,9 @@ parse that place in the path.
 
         import overscore
 
-        overscore.parse("a__0___1____2_____3")
+        overscore.parse("a-b__0___1____2_____3")
         # [
-        #     "a",
+        #     "a-b",
         #     0,
         #     -1,
         #     "2",
@@ -242,8 +242,8 @@ parse that place in the path.
 
         import overscore
 
-        overscore.compile(["a", 0, -1, "2", "-3"])
-        # "a__0___1____2_____3"
+        overscore.compile(["a-b", 0, -1, "2", "-3"])
+        # "a-b__0___1____2_____3"
 
 .. exception:: OverscoreError
 

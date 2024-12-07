@@ -15,7 +15,7 @@ class TestOverscore(sphinxter.unittest.TestCase):
         self.assertEqual(overscore.parse("__1"), ['1'])
         self.assertEqual(overscore.parse("___1"), ['-1'])
         self.assertEqual(overscore.parse("_order"), ['_order'])
-        self.assertEqual(overscore.parse("a__0___1____2_____3"), ["a", 0, -1, "2", "-3"])
+        self.assertEqual(overscore.parse("a-b__0___1____2_____3"), ["a-b", 0, -1, "2", "-3"])
 
         self.assertSphinxter(overscore.parse)
 
@@ -26,9 +26,9 @@ class TestOverscore(sphinxter.unittest.TestCase):
         self.assertEqual(overscore.compile(['1']), "__1")
         self.assertEqual(overscore.compile(['-1']), "___1")
         self.assertEqual(overscore.compile(['_order']), "_order")
-        self.assertEqual(overscore.compile(["a", 0, -1, "2", "-3"]), "a__0___1____2_____3")
+        self.assertEqual(overscore.compile(["a-b", 0, -1, "2", "-3"]), "a-b__0___1____2_____3")
 
-        self.assertRaisesRegex(overscore.OverscoreError, "cannot compile -nope", overscore.compile, ['-nope'])
+        self.assertRaisesRegex(overscore.OverscoreError, "cannot compile |nope", overscore.compile, ['|nope'])
 
         self.assertSphinxter(overscore.compile)
 
