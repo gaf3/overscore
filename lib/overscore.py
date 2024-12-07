@@ -69,7 +69,7 @@ import re
 
 NUMBER = re.compile(r"^\d+$")   # regex matching a number
 
-WORD = re.compile(r"^\w+$")     # regex matching a word
+WORD = re.compile(r"^(\w|\-)+$")     # regex matching a word
 
 class OverscoreError(Exception):
     """
@@ -87,9 +87,9 @@ def parse(
 
             import overscore
 
-            overscore.parse("a__0___1____2_____3")
+            overscore.parse("a-b__0___1____2_____3")
             # [
-            #     "a",
+            #     "a-b",
             #     0,
             #     -1,
             #     "2",
@@ -158,8 +158,8 @@ def compile(
 
             import overscore
 
-            overscore.compile(["a", 0, -1, "2", "-3"])
-            # "a__0___1____2_____3"
+            overscore.compile(["a-b", 0, -1, "2", "-3"])
+            # "a-b__0___1____2_____3"
     document: 30
     """
 
